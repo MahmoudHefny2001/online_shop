@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'cart',     ##
     'payment',  ##
     'coupons',  ##
+
+    'whitenoise.runserver_nostatic',    ## load static files in production
 ]
 
 REST_FRAMEWORK = {
@@ -93,6 +95,9 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     # Oauth
     # 'social_django.middleware.SocialAuthExceptionMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',   ## load static files in production
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
