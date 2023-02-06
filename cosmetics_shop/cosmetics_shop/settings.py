@@ -128,14 +128,29 @@ WSGI_APPLICATION = 'cosmetics_shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DATABASE_NAME'),
+#         'USER': os.environ.get('DATABASE_USER'),
+#         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+#         'HOST': os.environ.get('DATABASE_HOST'),
+#         'PORT': os.environ.get('DATABASE_PORT'),
+#         # 'TEST': {
+#         #     'NAME': '',
+#         # },
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_HOST'),
-        'PORT': os.environ.get('DATABASE_PORT'),
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': "OBj3AlJbNrdZOsAhZ1ep",
+        'HOST': 'containers-us-west-151.railway.app',
+        'PORT': "7220",
         # 'TEST': {
         #     'NAME': '',
         # },
@@ -220,6 +235,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
+    "http://localhost:8080",
+    "http://192.168.0.222:8080"
 ]
 
 
@@ -263,3 +280,7 @@ AUTHENTICATION_BACKENDS = (
     # 'https://www.googleapis.com/auth/userinfo.email',
     # 'https://www.googleapis.com/auth/userinfo.profile',
 # ]
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = '/static/'
