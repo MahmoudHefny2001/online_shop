@@ -5,41 +5,24 @@ from django.contrib.auth.hashers import make_password
 from .models import Profile, Address, Customer
 from rest_framework.validators import UniqueValidator
 from rest_framework.response import Response
+from drf_writable_nested.serializers import WritableNestedModelSerializer
+
 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ['line1', 'line2', 'city', 'governorate', 'zipCode']
-        read_only_fields = ("id", )
-
-
-class AddressSerializer(serializers.Serializer):
-    line1 = serializers.CharField(required=False, allow_null=True)
-    line2 = serializers.CharField(required=False, allow_null=True)
-    city = serializers.CharField(required=False, allow_null=True)
-    governorate = serializers.CharField(required=False, allow_null=True)
-    zipCode = serializers.CharField(required=False, allow_null=True)
-
-
-class ProfileSerializer(serializers.Serializer):
+        fields = ['line1','line2','city','governorate', 'zipCode']
     
-    address = AddressSerializer(required=False, allow_null=True)
+    
 
-    GENDER_CHOICES = (
-        ('Male','Male'),
-        ('Female','Female'),
-    )
+class ProfileSerializer(WritableNestedModelSerializer):
+    address = AddressSerializer()
+    class Meta:
+        model = Profile
+        fields = ['gender','date_of_birth','address', 'customer']
 
-    gender = serializers.ChoiceField(choices=GENDER_CHOICES, default='Male', allow_null=True)
-    date_of_birth = serializers.DateField(allow_null=True)
 
-    photo = serializers.FileField(
-        allow_null=True, 
-        required=False, use_url=True,
-        max_length=None, source='profile.photo',
-        allow_empty_file=True,        
-    )
-
+ 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer

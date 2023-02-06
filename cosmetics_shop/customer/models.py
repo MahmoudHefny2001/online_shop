@@ -4,16 +4,15 @@ from django.core.validators import RegexValidator
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-
 # Create your models here.
 
 
 class Address(models.Model):
-    line1 = models.CharField(max_length=50)
-    line2 = models.CharField(max_length=30, null=True)
-    city = models.CharField(max_length=30, null=False, default='Assiut')
-    governorate = models.CharField(max_length=30, null=True, default='Assiut')
-    zipCode = models.IntegerField(null=False, default=14)
+    line1 = models.CharField(max_length=50, blank=True, null=True)
+    line2 = models.CharField(max_length=30, null=True, blank=True)
+    city = models.CharField(max_length=30, null=False, blank=True, default='Assiut')
+    governorate = models.CharField(max_length=30, blank=True, null=True, default='Assiut')
+    zipCode = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.line1 + ' ' + self.line2
@@ -38,6 +37,6 @@ class Profile(models.Model):
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default='Male', null=True, blank=False)
     customer = models.OneToOneField('Customer', on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
-    photo = models.FileField(upload_to='users', blank=True, null=True)
+    photo = models.FileField(upload_to='users', blank=True, null=True, serialize=False)
     address = models.ForeignKey('Address', on_delete=models.CASCADE, null=True, blank=True, default='')
     

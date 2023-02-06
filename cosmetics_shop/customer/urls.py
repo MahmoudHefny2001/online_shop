@@ -6,11 +6,11 @@ from . import views
 route = DefaultRouter()
 
 # route.register(r'signup', views.CustomerSignUp)
-# route.register(r'profile', views.ProfileViewSet)
+route.register(r'profile', views.ProfileViewSet)
 
 urlpatterns = [
     path('', include(route.urls)),
     path('login/', views.CustomerLogIn.as_view()),
     path('signup/', views.CustomerSignUp.as_view()),
-    path('profile/<int:pk>/', views.ProfileCreateAPIView.as_view())
+    # path('profile/<int:pk>/', views.ProfileCreateAPIView.as_view()),
 ]
