@@ -1,6 +1,4 @@
 from rest_framework import serializers
-from django.core.validators import RegexValidator
-from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 from .models import Profile, Address, Customer
 from rest_framework.validators import UniqueValidator

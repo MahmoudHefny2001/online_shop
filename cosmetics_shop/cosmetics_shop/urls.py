@@ -24,5 +24,6 @@ from django.urls import re_path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('customer.urls')),
+    # path('products/', include('products.urls')),
     re_path(r'^auth/', include('drf_social_oauth2.urls', namespace='drf'))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

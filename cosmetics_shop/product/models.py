@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from customer.models import Customer
-from merchant.models import Inventory
+from merchant.models import Inventory 
+from datetime import datetime    
+
 
 # Create your models here.
 
@@ -22,7 +24,7 @@ class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, unique=True)
     active = models.BooleanField(default=True, null=True, blank=True)
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=500, default="")
 
     class Meta:
         ordering = ('name',)
@@ -49,7 +51,7 @@ class Product(models.Model):
     product_available = models.BooleanField(default=True, null=True, blank=True)
     discount_available = models.BooleanField(default=True, null=True, blank=True)
 
-    inventory = models.ForeignKey('Inventory', on_delete=models.CASCADE) 
+    inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE, default=1) 
 
     def __str__(self) -> str:
         return self.name
@@ -74,12 +76,14 @@ class Order(models.Model):
     )
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    order_tracking_number = models.CharField(max_length=100, unique=True, null=False, db_index=True)
-    order_taxes = models.FloatField()
+    created_at = models.DateTimeField(default=datetime.now)
+    order_tracking_number = models.CharField(max_length=100, unique=True, null=False, db_index=True, default="50-50")
+    order_taxes = models.FloatField(default=50)
     order_state = models.CharField(max_length=12, choices=ORDER_STATE, default='Not Arrived', null=False, blank=False)
-    order_amount = models.PositiveIntegerField()
-    address = models.ForeignKey('Address', on_delete=models.PROTECT)
+    order_amount = models.PositiveIntegerField(default=1)
+    address = models.ForeignKey('Address', on_delete=models.PROTECT, default="Assiut")
+
+    estimated_delivery_time = models.DateField(default=datetime.now)
 
 
 

@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 
-
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address

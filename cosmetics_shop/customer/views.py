@@ -2,7 +2,6 @@ from django.shortcuts import render
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework import generics, mixins, viewsets, views
 from .serializers import CustomerSerializer, ProfileSerializer, LoginSerializer, AddressSerializer
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .authentication import TokenAuthentication
 from django.contrib.auth.models import User
 from . import models
@@ -12,7 +11,7 @@ from django.db.models import Q
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view
-
+from django.contrib.auth.hashers import make_password
 # Create your views here.
 
 
@@ -32,6 +31,7 @@ class CustomerSignUp(views.APIView):
             password = serializer.validated_data['password'],
             phone_number = serializer.validated_data['phone_number']
         )
+        make_password(password)
         user.set_password(serializer.validated_data['password'])
         user.save()
         return Response(
