@@ -74,6 +74,7 @@ class Order(models.Model):
         ('Arrived','Arrived'),
         ('Not Arrived','Not Arrived'),
     )
+    
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=datetime.now)
