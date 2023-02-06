@@ -1,12 +1,28 @@
 from django.db import models
 from django.contrib.auth.models import User
 from customer.models import Customer
+from merchant.models import Inventory
+
 # Create your models here.
+
+
+
+class Address(models.Model):
+    line1 = models.CharField(max_length=50, blank=True, null=True)
+    line2 = models.CharField(max_length=30, null=True, blank=True)
+    city = models.CharField(max_length=30, null=False, blank=True, default='Assiut')
+    governorate = models.CharField(max_length=30, blank=True, null=True, default='Assiut')
+    zipCode = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.line1 + ' ' + self.line2
 
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, unique=True)
+    active = models.BooleanField(default=True, null=True, blank=True)
+    description = models.TextField(max_length=500)
 
     class Meta:
         ordering = ('name',)
@@ -30,6 +46,10 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
     collection_images = models.ForeignKey('ImageModel', blank=True, on_delete=models.CASCADE)
 
+    product_available = models.BooleanField(default=True, null=True, blank=True)
+    discount_available = models.BooleanField(default=True, null=True, blank=True)
+
+    inventory = models.ForeignKey('Inventory', on_delete=models.CASCADE) 
 
     def __str__(self) -> str:
         return self.name
@@ -48,8 +68,19 @@ class ImageModel(models.Model):
 
 
 class Order(models.Model):
+    ORDER_STATE = (
+        ('Arrived','Arrived'),
+        ('Not Arrived','Not Arrived'),
+    )
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    order_tracking_number = models.CharField(max_length=100, unique=True, null=False, db_index=True)
+    order_taxes = models.FloatField()
+    order_state = models.CharField(max_length=12, choices=ORDER_STATE, default='Not Arrived', null=False, blank=False)
+    order_amount = models.PositiveIntegerField()
+    address = models.ForeignKey('Address', on_delete=models.PROTECT)
+
 
 
 class Brand(models.Model):
