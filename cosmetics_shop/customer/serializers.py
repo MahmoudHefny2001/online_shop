@@ -19,7 +19,7 @@ class ProfileSerializer(WritableNestedModelSerializer):
     address = AddressSerializer()
     class Meta:
         model = Profile
-        fields = ['gender','date_of_birth','address', 'customer']
+        fields = ['gender','date_of_birth','address', 'photo', 'customer']
 
 
  

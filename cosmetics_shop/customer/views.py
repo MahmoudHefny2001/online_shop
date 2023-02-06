@@ -76,5 +76,11 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = models.Profile.objects.all()
     serializer_class = ProfileSerializer
     authentication_classes = (TokenAuthentication, SessionAuthentication)
-    # permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, )
+
+    def get_queryset(self, *args, **kwargs):
+        
+        qs = super().get_queryset(*args, **kwargs)
+        return qs.filter(id = self.request.user.profile.id)
+    
     

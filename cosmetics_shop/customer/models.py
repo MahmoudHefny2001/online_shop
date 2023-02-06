@@ -37,6 +37,6 @@ class Profile(models.Model):
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default='Male', null=True, blank=False)
     customer = models.OneToOneField('Customer', on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
-    photo = models.FileField(upload_to='users', blank=True, null=True, serialize=False)
+    photo = models.FileField(upload_to='users', blank=True, null=True)
     address = models.ForeignKey('Address', on_delete=models.CASCADE, null=True, blank=True, default='')
     
