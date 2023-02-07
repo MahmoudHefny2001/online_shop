@@ -53,8 +53,7 @@ INSTALLED_APPS = [
     'drf_social_oauth2',
 
     "corsheaders",  #
-
-    "phonenumber_field", #######
+    
 
     'product',  ##
     'customer', ##
@@ -62,8 +61,8 @@ INSTALLED_APPS = [
     'payment',  ##
     'coupons',  ##
     'merchant', ##
+    'location', ##
 
-    'whitenoise.runserver_nostatic',    ## load static files in production
 ]
 
 REST_FRAMEWORK = {
@@ -88,6 +87,11 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FormParser',
         'rest_framework.parsers.MultiPartParser',
     ),
+
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
 }
 
 
@@ -96,8 +100,6 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     # Oauth
     # 'social_django.middleware.SocialAuthExceptionMiddleware',
-
-    'whitenoise.middleware.WhiteNoiseMiddleware',   ## load static files in production
 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -200,6 +202,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -288,7 +293,4 @@ AUTHENTICATION_BACKENDS = (
 # ]
 
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-# STATIC_URL = '/static/'
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+

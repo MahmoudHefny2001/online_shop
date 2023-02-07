@@ -8,7 +8,7 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ['line1','line2','city','governorate', 'zipCode']
+        fields = '__all__'
 
 
 class CategorySerializer(serializers.ModelSerializer):

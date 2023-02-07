@@ -3,21 +3,9 @@ from django.contrib.auth.models import User
 from customer.models import Customer
 from merchant.models import Inventory 
 from datetime import datetime    
-
+from location.models import Address
 
 # Create your models here.
-
-
-
-class Address(models.Model):
-    line1 = models.CharField(max_length=50, blank=True, null=True)
-    line2 = models.CharField(max_length=30, null=True, blank=True)
-    city = models.CharField(max_length=30, null=False, blank=True, default='Assiut')
-    governorate = models.CharField(max_length=30, blank=True, null=True, default='Assiut')
-    zipCode = models.IntegerField(null=True, blank=True)
-
-    def __str__(self):
-        return self.line1 + ' ' + self.line2
 
 
 class Category(models.Model):
@@ -37,7 +25,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    category = models.ForeignKey('Category', related_name='products', on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', related_name='products', on_delete=models.PROTECT)
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
     image = models.ImageField(upload_to='products', blank=True)
@@ -46,9 +34,8 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    collection_images = models.ForeignKey('ImageModel', blank=True, on_delete=models.CASCADE)
+    # collection_images = models.ForeignKey('ImageModel', blank=True, on_delete=models.CASCADE)
 
-    product_available = models.BooleanField(default=True, null=True, blank=True)
     discount_available = models.BooleanField(default=True, null=True, blank=True)
 
     inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE, default=1) 
@@ -67,6 +54,7 @@ class Product(models.Model):
 
 class ImageModel(models.Model):
     images = models.ImageField(upload_to='products', blank=True) 
+    product = models.ForeignKey('Product', on_delete=models.PROTECT, default='')
 
 
 class Order(models.Model):
@@ -75,14 +63,14 @@ class Order(models.Model):
         ('Not Arrived','Not Arrived'),
     )
     
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    product = models.ForeignKey('Product', on_delete=models.PROTECT)
     created_at = models.DateTimeField(default=datetime.now)
-    order_tracking_number = models.CharField(max_length=100, unique=True, null=False, db_index=True, default="50-50")
+    order_tracking_number = models.CharField(max_length=100, unique=True, null=False, db_index=True)
     order_taxes = models.FloatField(default=50)
-    order_state = models.CharField(max_length=12, choices=ORDER_STATE, default='Not Arrived', null=False, blank=False)
+    order_state = models.CharField(max_length=12, choices=ORDER_STATE, default='ARRIVED', null=False, blank=False)
     order_amount = models.PositiveIntegerField(default=1)
-    address = models.ForeignKey('Address', on_delete=models.PROTECT, default="Assiut")
+    address = models.ForeignKey(Address, on_delete=models.PROTECT)
 
     estimated_delivery_time = models.DateField(default=datetime.now)
 
