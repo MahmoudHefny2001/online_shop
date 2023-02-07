@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Product, Category, Order, Brand, ImageModel, Address
+from .models import Product, Category, Order, Brand, ImageModel
+from location.models import Address
 from rest_framework.validators import UniqueValidator
 from rest_framework.response import Response
 from drf_writable_nested.serializers import WritableNestedModelSerializer

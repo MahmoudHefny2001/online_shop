@@ -96,8 +96,12 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+
+    "corsheaders.middleware.CorsMiddleware",    ##
+
+    'django.middleware.security.SecurityMiddleware',    
+    'django.contrib.sessions.middleware.SessionMiddleware', 
+
     # Oauth
     # 'social_django.middleware.SocialAuthExceptionMiddleware',
 
@@ -136,34 +140,34 @@ WSGI_APPLICATION = 'cosmetics_shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('DATABASE_NAME'),
-#         'USER': os.environ.get('DATABASE_USER'),
-#         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-#         'HOST': os.environ.get('DATABASE_HOST'),
-#         'PORT': os.environ.get('DATABASE_PORT'),
-#         # 'TEST': {
-#         #     'NAME': '',
-#         # },
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': "njaWi6PL4msPDiq53ZnW",
-        'HOST': 'containers-us-west-173.railway.app',
-        'PORT': "5811",
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': os.environ.get('DATABASE_PORT'),
         # 'TEST': {
         #     'NAME': '',
         # },
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': "njaWi6PL4msPDiq53ZnW",
+#         'HOST': 'containers-us-west-173.railway.app',
+#         'PORT': "5811",
+#         # 'TEST': {
+#         #     'NAME': '',
+#         # },
+#     }
+# }
 
 
 # Password validation
@@ -241,14 +245,15 @@ CORS_ALLOW_HEADERS = [
     "authenticate"
 ]
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-#     "http://127.0.0.1:3000",
-#     "http://localhost:8000",
-#     "http://127.0.0.1:8000",
-#     "http://localhost:8080",
-#     "http://192.168.0.222:8080"
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://localhost:8080",
+    "http://192.168.0.222:8080"
+]
+
 
 
 

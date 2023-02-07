@@ -24,16 +24,18 @@ class CustomerSignUp(views.APIView):
         serializer = CustomerSerializer(data=data)
         serializer.is_valid(raise_exception=True)
 
+        hashed = make_password(serializer.validated_data['password'])
+
         user = models.Customer.objects.create(
             username = serializer.validated_data['username'],
             email = serializer.validated_data['email'],
             full_name = serializer.validated_data['full_name'],
-            password = serializer.validated_data['password'],
+            password = hashed,
             phone_number = serializer.validated_data['phone_number']
         )
-        make_password(password)
-        user.set_password(serializer.validated_data['password'])
-        user.save()
+        
+        # user.set_password(serializer.validated_data['password'])
+        # user.save()
         return Response(
             {
                 'username': user.username,
