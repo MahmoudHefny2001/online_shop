@@ -1,15 +1,9 @@
 from rest_framework import serializers
-from .models import Product, Category, Order, Brand, ImageModel
+from .models import Product, Category, Brand, ImageModel
 from location.models import Address
 from rest_framework.validators import UniqueValidator
 from rest_framework.response import Response
 from drf_writable_nested.serializers import WritableNestedModelSerializer
-
-
-class AddressSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Address
-        fields = '__all__'
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -21,11 +15,6 @@ class CategorySerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = '__all__'
-
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Order
         fields = '__all__'
 
 

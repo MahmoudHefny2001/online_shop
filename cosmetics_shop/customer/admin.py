@@ -1,5 +1,6 @@
 from django.contrib import admin
 from . import models
+
 # Register your models here.
 
 @admin.register(models.Customer)
@@ -11,6 +12,3 @@ class CustomerAdmin(admin.ModelAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['gender', 'date_of_birth', 'customer', 'photo', 'address']
 
-@admin.register(models.Address)
-class AddressAdmin(admin.ModelAdmin):
-    list_display = ['line1', 'line2', 'city', 'governorate', 'zipCode']

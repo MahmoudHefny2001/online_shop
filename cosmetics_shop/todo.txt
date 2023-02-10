@@ -1,5 +1,13 @@
-Order application
+Order application  -> Every order has one customer and one cart, ....
+Default order of any product added to the cart 
+Cart has product, ...
 Merchant application / # Done
 Add User reset password
 
 # Order Handling
+
+
+Every customer has one cart --> OneToOneField
+
+Adding mail service, caching
+

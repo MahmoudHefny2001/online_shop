@@ -1,15 +1,10 @@
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
-from .models import Profile, Address, Customer
+from .models import Profile, Customer
 from rest_framework.validators import UniqueValidator
 from rest_framework.response import Response
 from drf_writable_nested.serializers import WritableNestedModelSerializer
-
-
-class AddressSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Address
-        fields = ['line1','line2','city','governorate', 'zipCode']
+from location.serializers import AddressSerializer
     
     
 

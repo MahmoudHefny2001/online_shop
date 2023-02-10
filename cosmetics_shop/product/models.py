@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+
 from customer.models import Customer
+
 from merchant.models import Inventory 
 from datetime import datetime    
 from location.models import Address
@@ -26,14 +27,8 @@ class Category(models.Model):
         return self.name
 
 
-class ProductReview(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    comment = models.TextField(max_length=300, null=True, blank=True)
-    rating = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(5.0)], null=True, blank=True)
-
-
 class Product(models.Model):
-    category = models.ForeignKey('Category', related_name='products', on_delete=models.PROTECT)
+    category = models.ForeignKey('product.Category', related_name='products', on_delete=models.PROTECT)
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, null=True, blank=True)
     image = models.ImageField(upload_to='products', blank=True)
@@ -44,12 +39,10 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     
-
     discount_available = models.BooleanField(default=True, null=True, blank=True)
 
     inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE, default=1) 
 
-    review_comments = models.ForeignKey('ProductReview', on_delete=models.PROTECT)
 
     def __str__(self) -> str:
         return self.name
@@ -59,33 +52,22 @@ class Product(models.Model):
         index_together = (('id', 'slug'),)
 
 
-# class SupProduct(models.Model):
-#     pass
-
-
 class ImageModel(models.Model):
     images = models.ImageField(upload_to='products', blank=True) 
-    product = models.ForeignKey('Product', on_delete=models.PROTECT, default='')
-
-
-class Order(models.Model):
-    ORDER_STATE = (
-        ('Arrived','Arrived'),
-        ('Not Arrived','Not Arrived'),
-    )
-    
-    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
-    product = models.ForeignKey('Product', on_delete=models.PROTECT)
-    created_at = models.DateTimeField(default=datetime.now)
-    order_tracking_number = models.CharField(max_length=100, unique=True, null=False, db_index=True)
-    order_taxes = models.FloatField(default=50)
-    order_state = models.CharField(max_length=12, choices=ORDER_STATE, default='ARRIVED', null=False, blank=False)
-    order_amount = models.PositiveIntegerField(default=1)
-    address = models.ForeignKey(Address, on_delete=models.PROTECT)
-
-    estimated_delivery_time = models.DateField(default=datetime.now)
-
+    product = models.ForeignKey('product.Product', on_delete=models.PROTECT, default='')
 
 
 class Brand(models.Model):
     name = models.CharField(max_length=100)
+
+
+
+class ProductReview(models.Model):
+    customer = models.ManyToManyField(Customer)
+    comment = models.TextField(max_length=300, null=True, blank=True)
+    rating = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(5.0)], null=True, blank=True)
+    product = models.ForeignKey('product.Product', on_delete=models.CASCADE, default='1')
+
+
+# class SupProduct(models.Model):
+#     pass

@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.authentication import(SessionAuthentication, BasicAuthentication, TokenAuthentication)
 from rest_framework import generics, mixins, viewsets, views
-from .serializers import CustomerSerializer, ProfileSerializer, LoginSerializer, AddressSerializer
+from .serializers import CustomerSerializer, ProfileSerializer, LoginSerializer
+from location.serializers import AddressSerializer
 from .authentication import TokenAuthentication
 from django.contrib.auth.models import User
 from . import models
@@ -12,6 +13,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view
 from django.contrib.auth.hashers import make_password
+
 # Create your views here.
 
 

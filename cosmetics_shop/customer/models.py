@@ -1,21 +1,17 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser, AbstractBaseUser, UserManager, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import(
+    User, AbstractUser, 
+    AbstractBaseUser, UserManager,
+    PermissionsMixin, BaseUserManager
+)
 from django.core.validators import RegexValidator
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
+from location.models import Address
+
 
 # Create your models here.
 
 
-class Address(models.Model):
-    line1 = models.CharField(max_length=50, blank=True, null=True)
-    line2 = models.CharField(max_length=30, null=True, blank=True)
-    city = models.CharField(max_length=30, null=False, blank=True, default='Assiut')
-    governorate = models.CharField(max_length=30, blank=True, null=True, default='Assiut')
-    zipCode = models.IntegerField(null=True, blank=True)
-
-    def __str__(self):
-        return self.line1 + ' ' + self.line2
 
 
 class Customer(AbstractUser):
@@ -24,6 +20,9 @@ class Customer(AbstractUser):
     full_name = models.CharField(max_length=250, unique=False)
     phone_number = models.CharField(max_length=12, unique=True)
     password = models.CharField(max_length=250, blank=False, null=False)
+
+    cart = models.OneToOneField('cart.Cart', on_delete = models.PROTECT, blank=True, null=True)
+
 
     def __str__(self):
         return self.username 
@@ -35,8 +34,8 @@ class Profile(models.Model):
         ('Female','Female'),
     )
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default='Male', null=True, blank=False)
-    customer = models.OneToOneField('Customer', on_delete=models.CASCADE)
+    customer = models.OneToOneField('customer.Customer', on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
     photo = models.FileField(upload_to='users', blank=True, null=True)
-    address = models.ForeignKey('Address', on_delete=models.CASCADE, null=True, blank=True, default='')
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True, default='')
     
