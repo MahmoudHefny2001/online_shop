@@ -14,6 +14,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view
 from django.contrib.auth.hashers import make_password
 
+from .tasks import send_registration_mail
+
 # Create your views here.
 
 
@@ -38,6 +40,10 @@ class CustomerSignUp(views.APIView):
         
         # user.set_password(serializer.validated_data['password'])
         # user.save()
+
+        if user:
+            send_registration_mail()        ## Send registration mail
+
         return Response(
             {
                 'username': user.username,
@@ -47,7 +53,10 @@ class CustomerSignUp(views.APIView):
                 'full_name': user.full_name,
             }
         )
+
+
     
+
 
 
 class CustomerLogIn(views.APIView):
