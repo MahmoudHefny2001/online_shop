@@ -21,7 +21,7 @@ class Order(models.Model):
     order_amount = models.PositiveIntegerField(default=1)
     estimated_delivery_time = models.DateField(default=datetime.now)
 
-    address = models.ForeignKey(Address, on_delete=models.PROTECT)
+    address = models.ForeignKey('location.Address', on_delete=models.PROTECT)
     
     customer = models.OneToOneField(Customer, on_delete=models.PROTECT)
     cart = models.OneToOneField(Cart, on_delete=models.PROTECT)

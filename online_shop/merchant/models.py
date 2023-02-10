@@ -8,7 +8,7 @@ from location.models import Address
 
 class Inventory(models.Model):
     name = models.CharField(max_length=100, null=False)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    address = models.ForeignKey('location.Address', on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=15, unique=True, db_index=True)
     postal_code = models.CharField(max_length=30)
     fax = models.CharField(max_length=20)

@@ -37,5 +37,5 @@ class Profile(models.Model):
     customer = models.OneToOneField('customer.Customer', on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
     photo = models.FileField(upload_to='users', blank=True, null=True)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True, default='')
+    address = models.ForeignKey('location.Address', on_delete=models.CASCADE, null=True, blank=True, default='')
     
