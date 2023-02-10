@@ -2,7 +2,6 @@ from django.db import models
 
 from customer.models import Customer
 
-from merchant.models import Inventory 
 from datetime import datetime    
 from location.models import Address
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -41,7 +40,7 @@ class Product(models.Model):
     
     discount_available = models.BooleanField(default=True, null=True, blank=True)
 
-    inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE, default=1) 
+    inventory = models.ForeignKey('merchant.Inventory', on_delete=models.CASCADE, default=1) 
 
 
     def __str__(self) -> str:
