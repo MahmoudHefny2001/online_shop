@@ -14,7 +14,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view
 from django.contrib.auth.hashers import make_password
 
-from .tasks import send_registration_mail
+from django.db.models.signals import pre_save, post_save
+# from .tasks import send_registration_mail
 
 # Create your views here.
 
@@ -26,23 +27,14 @@ class CustomerSignUp(views.APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
         serializer = CustomerSerializer(data=data)
-        serializer.is_valid(raise_exception=True)
-
-        hashed = make_password(serializer.validated_data['password'])
-
-        user = models.Customer.objects.create(
-            username = serializer.validated_data['username'],
-            email = serializer.validated_data['email'],
-            full_name = serializer.validated_data['full_name'],
-            password = hashed,
-            phone_number = serializer.validated_data['phone_number']
-        )
-        
-        # user.set_password(serializer.validated_data['password'])
-        # user.save()
-
-        if user:
-            send_registration_mail()        ## Send registration mail
+        if serializer.is_valid(raise_exception=True):
+            user = models.Customer.objects.create(
+                username = serializer.validated_data['username'],
+                email = serializer.validated_data['email'],
+                full_name = serializer.validated_data['full_name'],
+                password = make_password(serializer.validated_data['password']),
+                phone_number = serializer.validated_data['phone_number']
+            )
 
         return Response(
             {
@@ -54,11 +46,13 @@ class CustomerSignUp(views.APIView):
             }
         )
 
+   
 
+    #send_registration_mail(user.email)        ## Send registration mail
+    
     
 
-
-
+    
 class CustomerLogIn(views.APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = []

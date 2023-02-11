@@ -11,3 +11,4 @@ Every customer has one cart --> OneToOneField
 
 Adding mail service, caching
 
+Search functionality

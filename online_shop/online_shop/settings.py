@@ -317,10 +317,11 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'smtp.fastmail.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER =  'mhmwdhfny22@gmail.com'
-EMAIL_HOST_PASSWORD = 'MA7MOUD7EFNY.'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = False
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
