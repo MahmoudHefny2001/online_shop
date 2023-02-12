@@ -42,7 +42,7 @@ class CustomerSignUp(views.APIView):
         # Send mail task 
 
         send_registration_mail.delay(
-            user.email
+            user.email,
         )        
 
         return Response(

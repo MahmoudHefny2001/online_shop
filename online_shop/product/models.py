@@ -8,7 +8,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 from django_extensions.db.models import TimeStampedModel
 
-
 # Create your models here.
 
 
@@ -40,7 +39,7 @@ class Product(TimeStampedModel):
 
     
     discount_available = models.BooleanField(default=True, null=True, blank=True)
-    discount = models.ForeignKey('coupons.Discount', on_delete=models.PROTECT)
+    discount = models.ForeignKey('coupon.Discount', on_delete=models.PROTECT)
 
     inventory = models.ForeignKey('merchant.Inventory', on_delete=models.CASCADE, default=1) 
 

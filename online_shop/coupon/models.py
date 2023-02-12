@@ -5,9 +5,10 @@ from django_extensions.db.models import TimeStampedModel
 
 class Discount(TimeStampedModel):
     available = models.BooleanField(default=False)
-    discount_percentage = models.IntegerField()
-    
+    discount_amount = models.IntegerField()
+    code = models.CharField(max_length=100, unique=True)
 
-class coupon(TimeStampedModel):
+
+class Coupon(TimeStampedModel):
     discount = models.ForeignKey('Discount', on_delete=models.PROTECT)
 
