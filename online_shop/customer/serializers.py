@@ -39,3 +39,13 @@ class CustomerSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     username_or_email_or_phone = serializers.CharField(max_length=250)
     password = serializers.CharField(max_length=250)
+
+
+
+class PasswordResetSerializer(serializers.Serializer):
+    model = Customer
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
