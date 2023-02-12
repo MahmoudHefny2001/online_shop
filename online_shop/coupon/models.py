@@ -9,6 +9,6 @@ class Discount(TimeStampedModel):
     code = models.CharField(max_length=100, unique=True)
 
 
-class coupon(TimeStampedModel):
+class Coupon(TimeStampedModel):
     discount = models.ForeignKey('Discount', on_delete=models.PROTECT)
 
