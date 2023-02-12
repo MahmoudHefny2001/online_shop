@@ -20,8 +20,6 @@ class Customer(AbstractUser):
     phone_number = models.CharField(max_length=12, unique=True)
     password = models.CharField(max_length=250, blank=False, null=False)
 
-    # cart = models.OneToOneField('cart.Cart', on_delete = models.PROTECT, blank=True, null=True)
-
 
     def __str__(self):
         return self.username 
