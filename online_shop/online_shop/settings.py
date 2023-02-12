@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = os.environ.get('DEBUG', None)
+DEBUG = bool(os.environ.get('DEBUG', None))
 
 ALLOWED_HOSTS = ['*']
 
@@ -98,6 +98,8 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ],
+
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
 
@@ -322,9 +324,9 @@ CELERY_RESULT_SERIALIZER = 'json'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_USE_TLS = bool(os.environ.get('EMAIL_USE_TLS'))
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT'))
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_USE_SSL = False
+# EMAIL_USE_SSL = bool(os.environ.get(EMAIL_USE_SSL))
