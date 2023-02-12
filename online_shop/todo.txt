@@ -1,20 +1,9 @@
-Order application  -> Every order has one customer and one cart, ....
 Default order of any product added to the cart 
-Cart has product, ...
-Merchant application / # Done
 Add User reset password
-
 # Order Handling
-
-
-Every customer has one cart --> OneToOneField  **
-
-Adding mail service, caching 
-
+Adding mail service
+Web Caching 
 Search functionality
-
 Oauth
-
 notifications
-
-
+Add customer support service (django channels)  --> long term

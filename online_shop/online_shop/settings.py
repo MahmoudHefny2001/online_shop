@@ -145,6 +145,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'online_shop.wsgi.application'
+# ASGI_APPLICATION = ''
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -163,21 +164,6 @@ DATABASES = {
     }
 }
 
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'railway',
-#         'USER': 'postgres',
-#         'PASSWORD': "njaWi6PL4msPDiq53ZnW",
-#         'HOST': 'containers-us-west-173.railway.app',
-#         'PORT': "5811",
-#         # 'TEST': {
-#         #     'NAME': '',
-#         # },
-#     }
-# }
 
 
 # Password validation
@@ -309,6 +295,7 @@ AUTHENTICATION_BACKENDS = (
 
 
 # Celery settings
+
 CELERY_BROKER_URL = "redis://localhost:6379"
 CELERY_RESULT_BACKEND = "redis://localhost:6379"
 # CELERY_TIMEZONE = ''
@@ -322,8 +309,8 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_USE_TLS = bool(os.environ.get('EMAIL_USE_TLS'))
