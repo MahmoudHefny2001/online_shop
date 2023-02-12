@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'customer', ##
     'cart',     ##
     'payment',  ##
-    'coupons',  ##
+    'coupon',  ##
     'merchant', ##
     'location', ##
     'order',    ##
