@@ -6,6 +6,8 @@ from datetime import datetime
 from location.models import Address
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+from django_extensions.db.models import TimeStampedModel
+
 
 # Create your models here.
 
@@ -26,7 +28,7 @@ class Category(models.Model):
         return self.name
 
 
-class Product(models.Model):
+class Product(TimeStampedModel):
     category = models.ForeignKey('product.Category', related_name='products', on_delete=models.PROTECT)
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, null=True, blank=True)
@@ -34,11 +36,11 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=3)
     available = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    
 
     
     discount_available = models.BooleanField(default=True, null=True, blank=True)
+    discount = models.ForeignKey('coupons.Discount', on_delete=models.PROTECT)
 
     inventory = models.ForeignKey('merchant.Inventory', on_delete=models.CASCADE, default=1) 
 

@@ -8,10 +8,9 @@ from django.core.validators import RegexValidator
 from django.utils import timezone
 from location.models import Address
 
+from django_extensions.db.models import TimeStampedModel
 
 # Create your models here.
-
-
 
 
 class Customer(AbstractUser):
@@ -20,8 +19,6 @@ class Customer(AbstractUser):
     full_name = models.CharField(max_length=250, unique=False)
     phone_number = models.CharField(max_length=12, unique=True)
     password = models.CharField(max_length=250, blank=False, null=False)
-
-    cart = models.OneToOneField('cart.Cart', on_delete = models.PROTECT, blank=True, null=True)
 
 
     def __str__(self):
