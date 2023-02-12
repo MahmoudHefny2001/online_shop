@@ -20,6 +20,8 @@ from . import models
 from rest_framework.response import Response
 from location.serializers import AddressSerializer
 
+from rest_framework import filters
+
 # Create your views here.
 
 class CategoryView(generics.ListAPIView, generics.RetrieveAPIView, viewsets.GenericViewSet):
@@ -32,6 +34,10 @@ class CategoryView(generics.ListAPIView, generics.RetrieveAPIView, viewsets.Gene
 class ProductView(generics.ListAPIView, generics.RetrieveAPIView, viewsets.GenericViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    search_fields = ['^name', 'description']
+    filter_backends = (filters.SearchFilter,)
+
     authentication_classes = ()
     permission_classes = (AllowAny,)
 

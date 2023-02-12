@@ -7,8 +7,14 @@ Add User reset password
 # Order Handling
 
 
-Every customer has one cart --> OneToOneField
+Every customer has one cart --> OneToOneField  **
 
-Adding mail service, caching
+Adding mail service, caching 
 
 Search functionality
+
+Oauth
+
+notifications
+
+
