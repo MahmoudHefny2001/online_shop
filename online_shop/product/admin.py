@@ -14,8 +14,7 @@ class ProductAdmin(admin.ModelAdmin):
         'category','name',
         'slug','image', 
         'description', 'price', 
-        'available','created',
-        'updated', 'discount_available', 'inventory'
+        'available', 'discount_available', 'inventory'
     ]
 
 
