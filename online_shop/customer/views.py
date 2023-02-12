@@ -15,7 +15,7 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.hashers import make_password
 
 from django.db.models.signals import pre_save, post_save
-# from .tasks import send_registration_mail
+from .tasks import send_registration_mail
 
 from rest_framework import status
 
@@ -39,6 +39,12 @@ class CustomerSignUp(views.APIView):
                 phone_number = serializer.validated_data['phone_number']
             )
 
+        # Send mail task 
+
+        send_registration_mail.delay(
+            user.email
+        )        
+
         return Response(
             {
                 'username': user.username,
@@ -48,12 +54,7 @@ class CustomerSignUp(views.APIView):
                 'full_name': user.full_name,
             }
         )
-
-   
-
-    #send_registration_mail(user.email)        ## Send registration mail
-    
-    
+ 
 
     
 class CustomerLogIn(views.APIView):
