@@ -6,7 +6,7 @@ from django_extensions.db.models import TimeStampedModel
 class Cart(TimeStampedModel):
     product = models.ForeignKey('product.Product', on_delete=models.PROTECT)
     customer = models.ForeignKey('customer.Customer', on_delete=models.PROTECT)
-    discount = models.ForeignKey('coupon.Discount', on_delete=models.PROTECT)
+    discount = models.ForeignKey('discount.Discount', on_delete=models.PROTECT)
     quantity = models.IntegerField(default=1)
     has_discount = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=10, decimal_places=3)

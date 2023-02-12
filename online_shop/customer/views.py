@@ -95,6 +95,14 @@ class ProfileViewSet(viewsets.ModelViewSet):
         return qs.filter(id = self.request.user.profile.id)
 
 
+
+class Logout(views.APIView):
+    def get(self, request, format=None):
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)
+
+
+
 class ChangePasswordView(generics.UpdateAPIView):
     """
     An endpoint for changing password.

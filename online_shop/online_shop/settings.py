@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'merchant', ##
     'location', ##
     'order',    ##
+    'discount', ##
 
 ]
 

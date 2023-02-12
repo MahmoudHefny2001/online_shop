@@ -4,9 +4,9 @@ from .views import( ProductView, CategoryView, ImageView, BrandView, )
 
 route = DefaultRouter()
 
-route.register(r'Category', CategoryView)
-route.register(r'Brand', BrandView)
-route.register(r'Product', ProductView)
+route.register(r'category', CategoryView)
+route.register(r'brand', BrandView)
+route.register(r'product', ProductView)
 
 urlpatterns = [
     path('', include(route.urls)),

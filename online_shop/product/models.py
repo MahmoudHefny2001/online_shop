@@ -36,10 +36,8 @@ class Product(TimeStampedModel):
     price = models.DecimalField(max_digits=10, decimal_places=3)
     available = models.BooleanField(default=True)
     
-
-    
     discount_available = models.BooleanField(default=True, null=True, blank=True)
-    discount = models.ForeignKey('coupon.Discount', on_delete=models.PROTECT)
+    discount = models.ForeignKey('discount.Discount', on_delete=models.PROTECT)
 
     inventory = models.ForeignKey('merchant.Inventory', on_delete=models.CASCADE, default=1) 
 
