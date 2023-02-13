@@ -16,21 +16,14 @@ from django.template.response import TemplateResponse
 from payments import get_payment_model, RedirectNeeded
 from rest_framework.response import Response
 
-# Create your views here.
 
 
+class PaymentViewSet(viewsets.ModelViewSet):
+    queryset = models.Payment.objects.all()
+    serializer_class = serializers.PaymentSerializer
 
-# instantiate payment gateway
-# gateway = 
-
-
-def payment_details(request, payment_id):
-    payment = get_object_or_404(get_payment_model(), id=payment_id)
-
-    try:
-        form = payment.get_form(data=request.POST or None)
-    except RedirectNeeded as redirect_to:
-        return redirect(str(redirect_to))
-
-    return Response()
+    def get_queryset(self, *args, **kwargs):
+        
+        qs = super().get_queryset(*args, **kwargs)
+        return qs.filter(id = self.request.user.customer.id)
     

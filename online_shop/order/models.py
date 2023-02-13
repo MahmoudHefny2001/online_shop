@@ -18,8 +18,6 @@ class Order(TimeStampedModel):
     order_taxes = models.FloatField(default=50)
     order_state = models.CharField(max_length=12, choices=ORDER_STATE, default='Not Arrived', null=False, blank=False)
     
-    payment_option = models.CharField(max_length=200, blank=True)
-
     order_amount = models.PositiveIntegerField(default=1)
     
     estimated_delivery_time = models.DateField(default=datetime.now)
