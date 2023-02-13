@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework.authtoken import views as rest_views
 from rest_framework.routers import DefaultRouter
 from . import views
@@ -16,5 +16,7 @@ urlpatterns = [
 
     path('logout/', views.Logout.as_view()),
     path('change-password/', views.ChangePasswordView.as_view(), name='change-password'),
+
+    # re_path(r'^auth/', include('drf_social_oauth2.urls', namespace='drf'))
     
 ]

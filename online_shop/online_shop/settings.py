@@ -70,7 +70,42 @@ INSTALLED_APPS = [
     'order',    ##
     'discount', ##
 
+    "payments", ##  payments
+
 ]
+
+# PAYMENT_CONFIG
+
+PAYMENT_HOST = 'localhost:8000'
+PAYMENT_USES_SSL = True
+# PAYMENT_VARIANT_FACTORY = "mypaymentapp.provider_factory"
+PAYMENT_MODEL = 'payment.models.Payment'
+
+PAYMENT_VARIANTS = {
+    'paymob': (
+        '',{
+            'token': 'XXXXXXXXXX',
+            '': 'XXXXXXXXX',
+        }
+    ),
+
+    'paypal': (
+        'payments.paypal.PaypalProvider',{
+            'client_id': 'XXXXXXXXXX',
+            'secret': 'XXXXXXXXX',
+            'endpoint': 'https://api.sandbox.paypal.com',
+            'capture': False,
+        }
+    ),
+
+    'stripe': (
+        'payments.stripe.StripeProvider',{
+            'secret_key': 'sk_test_123456',
+            'public_key': 'pk_test_123456',
+        }
+    )
+}
+
 
 REST_FRAMEWORK = {
 
@@ -122,7 +157,6 @@ MIDDLEWARE = [
 ]
 
 
-
 ROOT_URLCONF = 'online_shop.urls'
 
 TEMPLATES = [
@@ -136,6 +170,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',    ##
+                'social_django.context_processors.login_redirect', ##
             ],
         },
     },
@@ -248,8 +285,6 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 
-
-
 AUTHENTICATION_BACKENDS = (
 
     'customer.backends.MultiUserName',  ##
@@ -270,19 +305,19 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Facebook configuration
-# SOCIAL_AUTH_FACEBOOK_KEY = '<your app id goes here>'
-# SOCIAL_AUTH_FACEBOOK_SECRET = '<your app secret goes here>'
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://localhost:8080'
 
-# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from Facebook.
-# Email is not sent by default, to get it, you must request the email permission.
-# SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-# SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-#     'fields': 'id, name, email'
-# }
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email'
+}
+SOCIAL_AUTH_USER_FIELDS = ['email', 'username', 'full_name', 'password']
 
 # Google configuration
-# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = <your app id goes here>
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = <your app secret goes here>
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
 # Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
 # SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [

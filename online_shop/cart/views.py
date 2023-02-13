@@ -14,3 +14,8 @@ class CartAPIView(viewsets.ModelViewSet):
     serializer_class = CartSerializer
     authentication_classes = (TokenAuthentication, SessionAuthentication) 
     permission_classes = (IsAuthenticated)
+
+    def get_queryset(self, *args, **kwargs):
+        
+        qs = super().get_queryset(*args, **kwargs)
+        return qs.filter(id = self.request.user.cart.id)

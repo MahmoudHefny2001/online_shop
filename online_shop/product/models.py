@@ -37,6 +37,7 @@ class Product(TimeStampedModel):
     available = models.BooleanField(default=True)
     
     discount_available = models.BooleanField(default=True, null=True, blank=True)
+    
     discount = models.ForeignKey('discount.Discount', on_delete=models.PROTECT)
 
     inventory = models.ForeignKey('merchant.Inventory', on_delete=models.CASCADE, default=1) 
