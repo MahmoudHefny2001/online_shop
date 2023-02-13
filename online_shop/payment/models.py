@@ -7,22 +7,9 @@ from payments.models import BasePayment
 # Create your models here.
 
 class Payment(BasePayment, TimeStampedModel):
-
-    def get_failure_url(self):
-        # Return a URL where users are redirected after
-        # they fail to complete a payment:
-        return f"http://example.com/payments/{self.pk}/failure"
-
-    def get_success_url(self):
-        # Return a URL where users are redirected after
-        # they successfully complete a payment:
-        return f"http://example.com/payments/{self.pk}/success"
-
-    def get_purchased_items(self):
-        yield PurchasedItem(
-            name='',
-            sku='',
-            # quantity=,
-            price=Decimal(),
-            currency='EGP',
-        )
+    code = models.CharField(max_length=200, unique=True, null=False)
+    payment_method = models.CharField(max_length=200)
+    
+    customer = models.ForeignKey('customer.Customer', on_delete=models.PROTECT)
+    orderItem = models.ForeignKey('order.OrderItem', on_delete=models.CASCADE)
+    
