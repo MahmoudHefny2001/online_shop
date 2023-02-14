@@ -18,14 +18,5 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 
 
-class OrderItemViewSet(viewsets.ModelViewSet):
-    queryset = OrderItem.Objects.all()
-    serializer_class = OrderItemSerializer
-
-    def get_queryset(self, *args, **kwargs):
-        
-        qs = super().get_queryset(*args, **kwargs)
-        return qs.filter(id = self.request.user.customer.id)
-
 
 

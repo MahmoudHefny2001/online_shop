@@ -4,7 +4,6 @@ from rest_framework.authentication import (BasicAuthentication,
                                            SessionAuthentication,
                                            TokenAuthentication)
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
-
 from .models import Cart
 from .serializers import CartSerializer
 
