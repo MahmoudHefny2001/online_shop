@@ -7,3 +7,4 @@ Search functionality
 Oauth
 notifications
 Add customer support service (django channels)  --> long term
+elasticsearch
