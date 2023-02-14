@@ -8,5 +8,5 @@ Oauth
 notifications
 Add customer support service (django channels)  --> long term
 elasticsearch
-
 Sub product model
+videos of products

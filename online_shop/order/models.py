@@ -13,7 +13,7 @@ class Order(TimeStampedModel):
     order_state = models.CharField(max_length=12, choices=ORDER_STATE, default='Not Arrived')
     order_code = models.CharField(max_length=200, unique=True)
     order_amount = models.PositiveIntegerField(default=1)
-    estimated_delivery_time = models.DateField(default=datetime.now)
+    estimated_delivery_time = models.DateField()
     price = models.DecimalField(max_digits=10, decimal_places=3)
 
     address = models.ForeignKey('location.Address', on_delete=models.PROTECT)

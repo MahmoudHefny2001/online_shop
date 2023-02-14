@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+
+@admin.register(models.Discount)
+class DiscountAdmin(admin.ModelAdmin):
+    list_display = ['code', 'available']

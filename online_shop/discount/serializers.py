@@ -6,4 +6,4 @@ from .models import Discount
 class DiscountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Discount
-        fields = '__all__'
+        fields = ['discount', 'available']

@@ -34,7 +34,7 @@ class Product(TimeStampedModel):
     category = models.ForeignKey('product.Category', related_name='products', on_delete=models.PROTECT)
     discount = models.ForeignKey('discount.Discount', on_delete=models.PROTECT)
     merchant = models.ForeignKey('merchant.Merchant', on_delete=models.PROTECT) 
-
+    
 
     def __str__(self) -> str:
         return self.name

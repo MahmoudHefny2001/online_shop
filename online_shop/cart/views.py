@@ -10,13 +10,13 @@ from .serializers import CartSerializer
 # Create your views here.
 
 
-class CartAPIView(viewsets.ModelViewSet):
+class CartAPIView(viewsets.ReadOnlyModelViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
     authentication_classes = (TokenAuthentication, SessionAuthentication) 
-    permission_classes = (IsAuthenticated)
+    permission_classes = (IsAuthenticated,)
 
-    def get_queryset(self, *args, **kwargs):
-        
-        qs = super().get_queryset(*args, **kwargs)
-        return qs.filter(id = self.request.user.cart.id)
+    # def get_queryset(self, *args, **kwargs):
+        # 
+        # qs = super().get_queryset(*args, **kwargs)
+        # return qs.filter(id = self.request.user.cart.customer.id)

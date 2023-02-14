@@ -1,28 +1,46 @@
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
-
 from .models import Brand, Category, ImageModel, Product
+from discount.serializers import DiscountSerializer
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ['name', 'active', 'description']
 
 
-class ProductSerializer(serializers.ModelSerializer):
+
+class ProductsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = '__all__'
-
-
-class BrandSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Brand
-        fields = '__all__'
+        fields = ['name', 'image', 'description', 'price']
 
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImageModel
-        fields = '__all__'
+        fields = ['product', 'image']
+
+
+class BrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Brand 
+        fields = ['name']
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    brand = BrandSerializer()
+    category = CategorySerializer()
+    discount = DiscountSerializer()
+
+
+    class Meta:
+        model = Product
+        fields = [
+            'name', 'image' , 'description', 'price',
+            'available', 'merchant', 'brand',
+            'category', 'discount'
+        ]
+        
+
+

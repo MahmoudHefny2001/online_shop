@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Coupon, Discount
+from .models import Coupon
 
 
 class CouponSerializer(serializers.ModelSerializer):
@@ -8,6 +8,3 @@ class CouponSerializer(serializers.ModelSerializer):
     fields = '__all__'
 
 
-class DiscountSerializer(serializers.ModelSerializer):
-    model = Discount
-    fields = '__all__'

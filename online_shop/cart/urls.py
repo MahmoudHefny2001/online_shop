@@ -1,7 +1,11 @@
 from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 from . import views
 
+router = DefaultRouter()
+
+router.register(r'my-cart', views.CartAPIView)
 
 urlpatterns = [
-    path('my-cart/', views.CartAPIView.as_view({'read':  'detail'})),
+    path('', include(router.urls)),
 ]
