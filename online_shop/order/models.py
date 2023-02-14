@@ -25,7 +25,7 @@ class Order(TimeStampedModel):
     address = models.ForeignKey('location.Address', on_delete=models.PROTECT)
     customer = models.ForeignKey('customer.Customer', on_delete=models.PROTECT)
     cart = models.ForeignKey('cart.Cart', on_delete=models.PROTECT)
-    discount = models.ForeignKey('discount.Discount', on_delete=models.PROTECT)
+    discount = models.ForeignKey('discount.Discount', on_delete=models.PROTECT, default=0)
 
     total_price = models.DecimalField(max_digits=10, decimal_places=3)
 
