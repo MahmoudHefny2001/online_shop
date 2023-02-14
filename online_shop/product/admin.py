@@ -14,7 +14,7 @@ class ProductAdmin(admin.ModelAdmin):
         'category','name',
         'slug','image', 
         'description', 'price', 
-        'available', 'discount_available', 'inventory'
+        'available', 'inventory'
     ]
 
 
@@ -25,5 +25,5 @@ class BrandAdmin(admin.ModelAdmin):
 
 @admin.register(models.ImageModel)
 class ImageModelAdmin(admin.ModelAdmin):
-    list_display = ['images']
+    list_display = ['image']
 
