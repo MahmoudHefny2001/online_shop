@@ -31,19 +31,17 @@ class Brand(models.Model):
     name = models.CharField(max_length=100)
 
 class Product(TimeStampedModel):
-    category = models.ForeignKey('product.Category', related_name='products', on_delete=models.PROTECT)
     name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, db_index=True, null=True, blank=True)
+    slug = models.SlugField(max_length=200, db_index=True)
     image = models.ImageField(upload_to='products', blank=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=3)
     available = models.BooleanField(default=True)
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
     
-    
+    category = models.ForeignKey('product.Category', related_name='products', on_delete=models.PROTECT)
     discount = models.ForeignKey('discount.Discount', on_delete=models.PROTECT)
-
-    inventory = models.ForeignKey('merchant.Inventory', on_delete=models.PROTECT) 
+    merchant = models.ForeignKey('merchant.Merchant', on_delete=models.PROTECT) 
 
 
     def __str__(self) -> str:
@@ -64,8 +62,7 @@ class ImageModel(models.Model):
 class ProductReview(models.Model):
     customer = models.ManyToManyField(Customer)
     comment = models.TextField(null=True, blank=True)
-    rating = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(5.0)], null=False, blank=False)
+    rating = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
     product = models.ForeignKey('product.Product', on_delete=models.CASCADE)
 
 
-#SUB_PRODUCT

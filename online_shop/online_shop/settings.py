@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'location', ##
     'order',    ##
     'discount', ##
+    'inventory', ##
 
     "payments", ##  payments
 

@@ -24,37 +24,67 @@ from rest_framework import filters
 
 # Create your views here.
 
-class CategoryView(generics.ListAPIView, generics.RetrieveAPIView, viewsets.GenericViewSet):
+class CategoryView(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    authentication_classes = ( )
-    permission_classes = (AllowAny, )
-
-
-class ProductView(generics.ListAPIView, generics.RetrieveAPIView, viewsets.GenericViewSet):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-    search_fields = ['^name', 'description']
+    search_fields = ['name']
     filter_backends = (filters.SearchFilter,)
 
-    authentication_classes = ()
-    permission_classes = (AllowAny,)
+    def get_queryset(self, *args, **kwargs):
+        
+        qs = super().get_queryset(*args, **kwargs)
+        return qs.filter(id = self.request.id)
+    
 
 
-class ImageView(generics.ListAPIView, generics.RetrieveAPIView, viewsets.GenericViewSet):
-    queryset = ImageModel.objects.all()
+class ProductView(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    search_fields = ['name', 'description']
+    filter_backends = (filters.SearchFilter,)
+
+
+    def get_queryset(self, *args, **kwargs):
+        
+        qs = super().get_queryset(*args, **kwargs)
+        return qs.filter(id = self.request.id)
+
+
+
+class ImageAPIView(viewsets.ModelViewSet):
+    queryset = ImageModel.objects.filter()
     serializer_class = ImageSerializer
-    authentication_classes = ()
-    permission_classes = (AllowAny,)
+
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
+
+    def get_queryset(self, *args, **kwargs):
+        
+        qs = super().get_queryset(*args, **kwargs)
+        return qs.filter(id = self.request.id)
+
+    
+    def list(self, request):
+        serializer = self.get_serializer(self.get_queryset())
+        return self.get_paginated_response(self.paginate_queryset(serializer.data))
+
+    def retrieve(self, request, pk):
+        item = self.get_object()
+        serializer = self.get_serializer(item)
+        return Response(serializer.data)
 
 
-class BrandView(generics.ListAPIView, generics.RetrieveAPIView, viewsets.GenericViewSet):
+class BrandView(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
-    authentication_classes = ()
-    permission_classes = (AllowAny,)
+    
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
 
+    def get_queryset(self, *args, **kwargs):
+        
+        qs = super().get_queryset(*args, **kwargs)
+        return qs.filter(id = self.request.id)
 
 
 

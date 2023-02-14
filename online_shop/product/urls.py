@@ -1,13 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import( ProductView, CategoryView, ImageView, BrandView, )
+from .views import( ProductView, CategoryView, ImageAPIView, BrandView, )
 
-route = DefaultRouter()
-
-route.register(r'category', CategoryView)
-route.register(r'brand', BrandView)
-route.register(r'product', ProductView)
 
 urlpatterns = [
-    path('', include(route.urls)),
+    path('category/', CategoryView.as_view({'get': 'retrieve', 'get':  'detail',})),
+    path('product/', ProductView.as_view({'get': 'retrieve', 'get':  'detail',})),
+    path('image/', ImageAPIView.as_view({'get': 'retrieve', 'get':  'detail',})),
+    path('brand/', BrandView.as_view({'get': 'retrieve', 'get':  'detail',})),
 ]
