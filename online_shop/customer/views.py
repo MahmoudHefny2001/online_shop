@@ -1,24 +1,25 @@
-from django.shortcuts import render
-from rest_framework.authentication import(SessionAuthentication, BasicAuthentication, TokenAuthentication)
-from rest_framework import generics, mixins, viewsets, views
-from .serializers import CustomerSerializer, ProfileSerializer, LoginSerializer, PasswordResetSerializer
-from location.serializers import AddressSerializer
-from .authentication import TokenAuthentication
-from django.contrib.auth.models import User
-from . import models
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.response import Response
-from django.db.models import Q
-from rest_framework.authtoken.models import Token
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
-from rest_framework.decorators import api_view
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
+from django.db.models import Q
+from django.db.models.signals import post_save, pre_save
+from django.shortcuts import render
+from rest_framework import generics, mixins, status, views, viewsets
+from rest_framework.authentication import (BasicAuthentication,
+                                           SessionAuthentication,
+                                           TokenAuthentication)
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.decorators import api_view
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework.response import Response
 
-from django.db.models.signals import pre_save, post_save
+from location.serializers import AddressSerializer
+
+from . import models
+from .authentication import TokenAuthentication
+from .serializers import (CustomerSerializer, LoginSerializer,
+                          PasswordResetSerializer, ProfileSerializer)
 from .tasks import send_registration_mail
-
-from rest_framework import status
-
 
 # Create your views here.
 

@@ -1,8 +1,9 @@
 from celery import Task, shared_task
-from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
-from order.models import Order
+from django.core.mail import EmailMessage, send_mail
+
 from customer.models import Customer
+from order.models import Order
 
 # @task
 # def payment_completed(order_id):

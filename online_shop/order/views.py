@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from rest_framework import views, viewsets, generics
-from .serializers import OrderSerializer, OrderItemSerializer
+from rest_framework import generics, views, viewsets
+
 from .models import Order, OrderItem
+from .serializers import OrderItemSerializer, OrderSerializer
 
 # Create your views here.
 

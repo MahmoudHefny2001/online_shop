@@ -1,6 +1,5 @@
-from celery import shared_task, Task
+from celery import Task, shared_task
 from django.conf import settings
-
 from django.core.mail import send_mail, send_mass_mail
 
 # 

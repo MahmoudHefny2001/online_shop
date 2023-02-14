@@ -1,6 +1,10 @@
 from urllib.parse import non_hierarchical
-from rest_framework.authentication import BaseAuthentication, TokenAuthentication, SessionAuthentication
+
+from rest_framework.authentication import (BaseAuthentication,
+                                           SessionAuthentication,
+                                           TokenAuthentication)
 from rest_framework.authtoken.models import Token
+
 
 class TokenAuthentication(BaseAuthentication):
     def authenticate(self, request):

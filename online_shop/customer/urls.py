@@ -1,6 +1,7 @@
-from django.urls import path, include, re_path
+from django.urls import include, path, re_path
 from rest_framework.authtoken import views as rest_views
 from rest_framework.routers import DefaultRouter
+
 from . import views
 
 route = DefaultRouter()

@@ -1,14 +1,12 @@
-from django.db import models
-from django.contrib.auth.models import(
-    User, AbstractUser, 
-    AbstractBaseUser, UserManager,
-    PermissionsMixin, BaseUserManager
-)
+from django.contrib.auth.models import (AbstractBaseUser, AbstractUser,
+                                        BaseUserManager, PermissionsMixin,
+                                        User, UserManager)
 from django.core.validators import RegexValidator
+from django.db import models
 from django.utils import timezone
-from location.models import Address
-
 from django_extensions.db.models import TimeStampedModel
+
+from location.models import Address
 
 # Create your models here.
 

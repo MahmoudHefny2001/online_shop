@@ -1,25 +1,23 @@
-from django.shortcuts import render
-from django.conf import settings
-from order.models import Order
-from .tasks import payment_completed
-from rest_framework.authentication import(SessionAuthentication, BasicAuthentication, TokenAuthentication)
-from rest_framework import generics, mixins, viewsets, views
-from . import serializers
-from location.serializers import AddressSerializer
-from . import models
-from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
-from django.db.models.signals import pre_save, post_save
-from rest_framework import status
-from django.shortcuts import get_object_or_404, redirect
-from django.template.response import TemplateResponse
-from payments import get_payment_model, RedirectNeeded
-from rest_framework.response import Response
-from django.views.decorators.csrf import csrf_exempt
-from product.models import Product
 import stripe
+from django.conf import settings
+from django.db.models.signals import post_save, pre_save
+from django.shortcuts import get_object_or_404, redirect, render
+from django.template.response import TemplateResponse
+from django.views.decorators.csrf import csrf_exempt
+from payments import RedirectNeeded, get_payment_model
+from rest_framework import generics, mixins, status, views, viewsets
+from rest_framework.authentication import (BasicAuthentication,
+                                           SessionAuthentication,
+                                           TokenAuthentication)
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework.response import Response
+
+from location.serializers import AddressSerializer
 from order.models import Order, OrderItem
-from .tasks import Payment_mail
+from product.models import Product
+
+from . import models, serializers
+from .tasks import Payment_mail, payment_completed
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 

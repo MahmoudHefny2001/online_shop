@@ -1,12 +1,13 @@
-from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
-from .models import Profile, Customer
-from rest_framework.validators import UniqueValidator
-from rest_framework.response import Response
 from drf_writable_nested.serializers import WritableNestedModelSerializer
+from rest_framework import serializers
+from rest_framework.response import Response
+from rest_framework.validators import UniqueValidator
+
 from location.serializers import AddressSerializer
-    
-    
+
+from .models import Customer, Profile
+
 
 class ProfileSerializer(WritableNestedModelSerializer):
     address = AddressSerializer()

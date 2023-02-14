@@ -1,9 +1,7 @@
 from rest_framework import serializers
-from .models import Product, Category, Brand, ImageModel
-from location.models import Address
 from rest_framework.validators import UniqueValidator
-from rest_framework.response import Response
-from drf_writable_nested.serializers import WritableNestedModelSerializer
+
+from .models import Brand, Category, ImageModel, Product
 
 
 class CategorySerializer(serializers.ModelSerializer):

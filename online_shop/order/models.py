@@ -1,9 +1,12 @@
+from datetime import datetime
+
 from django.db import models
+from django_extensions.db.models import TimeStampedModel
+
+from cart.models import Cart
 from customer.models import Customer
 from location.models import Address
-from cart.models import Cart
-from datetime import datetime
-from django_extensions.db.models import TimeStampedModel
+
 # Create your models here.
 
 

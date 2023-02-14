@@ -1,6 +1,7 @@
 from django.db import models
-from location.models import Address
 from django_extensions.db.models import TimeStampedModel
+
+from location.models import Address
 
 # Create your models here.
 

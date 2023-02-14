@@ -1,6 +1,7 @@
+from decimal import Decimal
+
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
-from decimal import Decimal
 from payments import PurchasedItem
 from payments.models import BasePayment
 

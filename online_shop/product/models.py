@@ -1,14 +1,6 @@
-from django.db import models
-
-from customer.models import Customer
-
-from datetime import datetime    
-from location.models import Address
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+from django.db import models
 from django_extensions.db.models import TimeStampedModel
-
-# Create your models here.
 
 
 class Category(models.Model):
@@ -60,7 +52,7 @@ class ImageModel(models.Model):
 
 
 class ProductReview(models.Model):
-    customer = models.ManyToManyField(Customer)
+    customer = models.ManyToManyField('customer.Customer')
     comment = models.TextField(null=True, blank=True)
     rating = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
     product = models.ForeignKey('product.Product', on_delete=models.CASCADE)

@@ -1,28 +1,16 @@
 from django.shortcuts import render
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
-from .serializers import(
-    CategorySerializer,
-    ProductSerializer,
-    BrandSerializer,
-    ImageSerializer,
-)
-from.models import(
-    Product,
-    Category, 
-    ImageModel,
-    Brand,
-)
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
-from rest_framework import generics, mixins, viewsets, views
-from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-from . import models
+from rest_framework.authentication import (BasicAuthentication,
+                                           SessionAuthentication)
+
+from .serializers import (BrandSerializer, CategorySerializer, ImageSerializer,
+                          ProductSerializer)
+
+from.models import(Product, Category, ImageModel, Brand,)
+from rest_framework import filters, viewsets
 from rest_framework.response import Response
-from location.serializers import AddressSerializer
 
-from rest_framework import filters
+from . import models
 
-# Create your views here.
 
 class CategoryView(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -82,9 +70,5 @@ class BrandView(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
 
     def get_queryset(self, *args, **kwargs):
-        
         qs = super().get_queryset(*args, **kwargs)
         return qs.filter(id = self.request.id)
-
-
-
