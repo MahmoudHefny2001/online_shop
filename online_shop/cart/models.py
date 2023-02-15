@@ -9,5 +9,6 @@ class Cart(TimeStampedModel):
     customer = models.ForeignKey('customer.Customer', on_delete=models.PROTECT)
     discount = models.ForeignKey('discount.Discount', on_delete=models.PROTECT, blank=True)
     quantity = models.PositiveIntegerField(default=1)
+    
     price_per_item = models.DecimalField(max_digits=10, decimal_places=3)
     

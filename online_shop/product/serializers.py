@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Brand, Category, ImageModel, Product
 from discount.serializers import DiscountSerializer
+from merchant.serializers import MerchantSerializer
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -16,10 +17,11 @@ class ProductsSerializer(serializers.ModelSerializer):
         fields = ['name', 'image', 'description', 'price']
 
 
-class ImageSerializer(serializers.ModelSerializer):
+class ProductsReadSerializer(serializers.ModelSerializer):
+    merchant = MerchantSerializer()
     class Meta:
-        model = ImageModel
-        fields = ['product', 'image']
+        model = Product
+        fields = ['name', 'image', 'description', 'price', 'merchant']
 
 
 class BrandSerializer(serializers.ModelSerializer):
@@ -41,6 +43,9 @@ class ProductSerializer(serializers.ModelSerializer):
             'available', 'merchant', 'brand',
             'category', 'discount'
         ]
+
         
-
-
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImageModel
+        fields = '__all__'

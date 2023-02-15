@@ -7,7 +7,7 @@ class Category(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
     active = models.BooleanField(default=True, null=True, blank=True)
-    description = models.TextField(max_length=500, default="")
+    description = models.TextField(max_length=500)
 
     class Meta:
         ordering = ('name',)
@@ -23,16 +23,16 @@ class Brand(models.Model):
     name = models.CharField(max_length=100)
 
 class Product(TimeStampedModel):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=200, db_index=True)
     image = models.ImageField(upload_to='products', blank=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=3)
     available = models.BooleanField(default=True)
-    brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
-    
+
+    brand = models.ForeignKey(Brand, on_delete=models.PROTECT)    
     category = models.ForeignKey('product.Category', related_name='products', on_delete=models.PROTECT)
-    discount = models.ForeignKey('discount.Discount', on_delete=models.PROTECT)
+    discount = models.ForeignKey('discount.Discount', on_delete=models.PROTECT, blank=True, null=True)
     merchant = models.ForeignKey('merchant.Merchant', on_delete=models.PROTECT) 
     
 
@@ -45,10 +45,8 @@ class Product(TimeStampedModel):
 
 
 class ImageModel(models.Model):
-    image = models.ImageField(upload_to='products', blank=True) 
-    product = models.ForeignKey('product.Product', on_delete=models.PROTECT)
-
-
+    image = models.ImageField(upload_to='products', blank=True)
+    product = models.ForeignKey('product.Product', on_delete=models.PROTECT, null=True)
 
 
 class ProductReview(models.Model):

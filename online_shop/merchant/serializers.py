@@ -1,9 +1,10 @@
 from rest_framework import serializers
 
-from .models import Inventory
+from .models import Merchant
+from inventory.serializers import InventorySerializer
 
-
-class InventorySerializers(serializers.ModelSerializer):
+class MerchantSerializer(serializers.ModelSerializer):
+    inventory = InventorySerializer()
     class Meta:
-        model = Inventory
-        fields = '__all__'
+        model = Merchant
+        fields = ['name', 'address', 'phone_number', 'postal_code', 'fax', 'email', 'inventory']

@@ -7,3 +7,10 @@ class DiscountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Discount
         fields = ['discount', 'available']
+
+
+class DiscountReadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Discount
+        fields = ['discount']
+        

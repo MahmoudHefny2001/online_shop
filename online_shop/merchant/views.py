@@ -1,3 +1,8 @@
 from django.shortcuts import render
+from rest_framework import viewsets
+from .models import Merchant
+from .serializers import MerchantSerializer
 
-# Create your views here.
+class MerchantViewSet(viewsets.ModelViewSet):
+    queryset = Merchant.objects.all()
+    serializer_class = MerchantSerializer

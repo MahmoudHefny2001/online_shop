@@ -5,18 +5,30 @@ from rest_framework.authentication import (BasicAuthentication,
                                            TokenAuthentication)
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from .models import Cart
-from .serializers import CartSerializer
+from .serializers import CartSerializer, CartRead
 
 # Create your views here.
 
 
 class CartAPIView(viewsets.ReadOnlyModelViewSet):
     queryset = Cart.objects.all()
+    serializer_class = CartRead
+    authentication_classes = (TokenAuthentication, SessionAuthentication) 
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self, *args, **kwargs):
+        
+        qs = super().get_queryset(*args, **kwargs)
+        return qs.filter(id = self.request.user.id)
+
+
+class CartViewSet(viewsets.ModelViewSet):
+    queryset = Cart.objects.all()
     serializer_class = CartSerializer
     authentication_classes = (TokenAuthentication, SessionAuthentication) 
     permission_classes = (IsAuthenticated,)
 
-    # def get_queryset(self, *args, **kwargs):
-        # 
-        # qs = super().get_queryset(*args, **kwargs)
-        # return qs.filter(id = self.request.user.cart.customer.id)
+    def get_queryset(self, *args, **kwargs):
+        
+        qs = super().get_queryset(*args, **kwargs)
+        return qs.filter(id = self.request.user.id)

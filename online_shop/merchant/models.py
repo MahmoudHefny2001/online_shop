@@ -1,11 +1,5 @@
 from django.db import models
-from django_extensions.db.models import TimeStampedModel
-
 from location.models import Address
-
-# Create your models here.
-
-
 
 
 class Merchant(models.Model):
@@ -15,5 +9,5 @@ class Merchant(models.Model):
     postal_code = models.CharField(max_length=30)
     fax = models.CharField(max_length=20)
     email = models.CharField(max_length=200, unique=True, db_index=True)
-    inventory = models.ManyToManyField('inventory.Inventory')
+    inventory = models.ForeignKey('inventory.Inventory', on_delete=models.SET_NULL, null=True)
 

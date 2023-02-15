@@ -17,6 +17,7 @@ Django==4.1.5
 django-celery-beat==2.4.0
 django-cors-headers==3.13.0
 django-extensions==3.2.1
+django-filter==22.1
 django-oauth-toolkit==2.2.0
 django-payments==1.0.0
 django-phonenumber-field==7.0.2
@@ -26,10 +27,13 @@ djangorestframework==3.14.0
 drf-social-oauth2==1.2.1
 drf-writable-nested==0.7.0
 ecdsa==0.18.0
+flake8==6.0.0
 gunicorn==20.1.0
 idna==3.4
+isort==5.12.0
 jwcrypto==1.4.2
 kombu==5.2.4
+mccabe==0.7.0
 mercadopago==2.2.0
 oauthlib==3.2.2
 phonenumbers==8.13.5
@@ -38,7 +42,9 @@ Pillow==9.4.0
 prompt-toolkit==3.0.36
 psycopg2-binary==2.9.5
 pyasn1==0.4.8
+pycodestyle==2.10.0
 pycparser==2.21
+pyflakes==3.0.1
 PyJWT==2.6.0
 python-crontab==2.7.1
 python-dateutil==2.8.2

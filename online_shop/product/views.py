@@ -35,10 +35,8 @@ class ProductView(viewsets.ReadOnlyModelViewSet):
 
 class ImageAPIView(viewsets.ReadOnlyModelViewSet):
     queryset = ImageModel.objects.all()
-    serializer_class = ImageSerializer
-
-    search_fields = ['name']
-    filter_backends = (filters.SearchFilter,)
+    serializer_class = ImageSerializer  
+    
     
 
 
