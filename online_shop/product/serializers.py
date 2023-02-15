@@ -35,7 +35,6 @@ class ProductSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     discount = DiscountSerializer()
 
-
     class Meta:
         model = Product
         fields = [
