@@ -6,7 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
-todo.txt
+.txt
+todo
 
 # Distribution / packaging
 .Python
