@@ -21,9 +21,9 @@ class Order(TimeStampedModel):
     
     address = models.ForeignKey('location.Address', on_delete=models.PROTECT)
     customer = models.ForeignKey('customer.Customer', on_delete=models.PROTECT)
-    cart = models.ForeignKey('cart.Cart', on_delete=models.PROTECT)
+    # cart = models.ForeignKey('cart.Cart', on_delete=models.PROTECT)
     shipping_address = models.ForeignKey('location.Address', related_name='shipping_orders', on_delete=models.SET_NULL, blank=True, null=True)
-
+    
     class Meta:
         ordering = ('-created', )
 

@@ -12,7 +12,7 @@ class OrderAdmin(admin.ModelAdmin):
         'customer',
         'order_tracking_number', 
         'order_taxes', 'order_state', 'address', 
-        'estimated_delivery_time', 'order_code', 'cart',
+        'estimated_delivery_time', 'order_code',
     ]
 
 
