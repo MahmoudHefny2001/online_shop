@@ -1,11 +1,16 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import CheckoutAPIView, PaymentViewSet, StripeCheckoutSessionCreateAPIView, StripeWebhookAPIView
 
-# from . import views
 
-# app_name = 'payment'
+router = DefaultRouter()
+router.register(r'', PaymentViewSet)
+
 
 urlpatterns = [
-    # path(('process/'), views.payment_process, name='process'),
-    # path(('done/'), views.payment_done, name='done'),
-    # path(('canceled/'), views.payment_canceled, name='canceled'),
+    path('', include(router.urls)),
+    path('stripe/create-checkout-session/<int:order_id>/', StripeCheckoutSessionCreateAPIView.as_view(), name='checkout_session'),
+    path('stripe/webhook/', StripeWebhookAPIView.as_view(), name='stripe_webhook'),
+    path('checkout/<int:pk>/', CheckoutAPIView.as_view(), name='checkout'),
+
 ]

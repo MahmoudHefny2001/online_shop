@@ -6,6 +6,7 @@ from .models import Cart
 from merchant.serializers import MerchantSerializer
 
 class CartSerializer(ModelSerializer):
+    discount = DiscountReadSerializer()
     class Meta:
         model = Cart
         fields = ['product', 'discount', 'quantity']

@@ -8,7 +8,7 @@ from .serializers import (BrandSerializer, CategorySerializer, ImageSerializer,
 from.models import(Product, Category, ImageModel, Brand,)
 from rest_framework import filters, viewsets
 from rest_framework.response import Response
-
+from rest_framework.permissions import AllowAny
 from . import models
 
 
@@ -24,6 +24,8 @@ class ProductsView(viewsets.ReadOnlyModelViewSet):
     serializer_class = ProductsSerializer
     search_fields = ['name', 'description']
     filter_backends = (filters.SearchFilter,)
+    authentication_classes = ()
+    permission_classes = (AllowAny,)
 
 class ProductView(viewsets.ReadOnlyModelViewSet):
     queryset = Product.objects.all()

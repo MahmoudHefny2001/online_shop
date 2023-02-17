@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     
     'django_celery_beat',   ## CELERY_BEAT
 
+    "payments", ##  payments
+
     'product',  ##
     'customer', ##
     'cart',     ##
@@ -73,44 +75,8 @@ INSTALLED_APPS = [
     'discount', ##
     'inventory', ##
 
-    "payments", ##  payments
-
 ]
 
-# PAYMENT_CONFIG
-
-PAYMENT_HOST = 'localhost:8000'
-PAYMENT_USES_SSL = True
-# PAYMENT_VARIANT_FACTORY = "mypaymentapp.provider_factory"
-PAYMENT_MODEL = 'payment.models.Payment'
-
-PAYMENT_VARIANTS = {
-    'paymob': (
-        '',{
-            'token': 'XXXXXXXXXX',
-            '': 'XXXXXXXXX',
-        }
-    ),
-
-    'paypal': (
-        'payments.paypal.PaypalProvider',{
-            'client_id': 'XXXXXXXXXX',
-            'secret': 'XXXXXXXXX',
-            'endpoint': 'https://api.sandbox.paypal.com',
-            'capture': False,
-        }
-    ),
-
-    'stripe': (
-        'payments.stripe.StripeProvider',{
-            'secret_key': 'sk_test_123456',
-            'public_key': 'pk_test_123456',
-        }
-    )
-}
-
-STRIPE_SECRET_KEY = 'XXXXXXXXXX'
-STRIPE_PUBLIC_KEY = 'XXXXXXXXXX'
 
 REST_FRAMEWORK = {
 
@@ -357,3 +323,63 @@ EMAIL_PORT = int(os.environ.get('EMAIL_PORT'))
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = bool(os.environ.get('EMAIL_USE_SSL'))
+
+
+
+# Stripe
+# STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+# STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+# STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
+
+# BACKEND_DOMAIN = os.environ.get('BACKEND_DOMAIN')
+# FRONTEND_DOMAIN = os.environ.get('FRONTEND_DOMAIN')
+
+# PAYMENT_SUCCESS_URL = os.environ.get('PAYMENT_SUCCESS_URL')
+# PAYMENT_CANCEL_URL = os.environ.get('PAYMENT_CANCEL_URL')
+
+
+# # Redis Cache
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+#         'LOCATION': os.environ.get('REDIS_BACKEND')
+#     },
+# }
+# CACHE_MIDDLEWARE_ALIAS = 'default'
+# CACHE_MIDDLEWARE_SECONDS = 3600
+# CACHE_MIDDLEWARE_KEY_PREFIX = ''
+
+# PAYMENT_CONFIG
+
+PAYMENT_HOST = 'localhost:8000'
+PAYMENT_USES_SSL = True
+# PAYMENT_VARIANT_FACTORY = "mypaymentapp.provider_factory"
+PAYMENT_MODEL = 'payment.models.Payment'
+
+PAYMENT_VARIANTS = {
+    'paymob': (
+        '',{
+            'token': 'XXXXXXXXXX',
+            '': 'XXXXXXXXX',
+        }
+    ),
+
+    'paypal': (
+        'payments.paypal.PaypalProvider',{
+            'client_id': 'XXXXXXXXXX',
+            'secret': 'XXXXXXXXX',
+            'endpoint': 'https://api.sandbox.paypal.com',
+            'capture': False,
+        }
+    ),
+
+    'stripe': (
+        'payments.stripe.StripeProvider',{
+            'secret_key': 'sk_test_123456',
+            'public_key': 'pk_test_123456',
+        }
+    )
+}
+
+STRIPE_SECRET_KEY = 'XXXXXXXXXX'
+STRIPE_PUBLIC_KEY = 'XXXXXXXXXX'
