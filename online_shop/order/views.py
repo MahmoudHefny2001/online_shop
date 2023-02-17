@@ -56,7 +56,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         res = super().get_queryset()
         user = self.request.user
-        return res.filter(buyer=user)
+        return res.filter(customer=user)
 
     def get_permissions(self):
         if self.action in ('update', 'partial_update', 'destroy'):

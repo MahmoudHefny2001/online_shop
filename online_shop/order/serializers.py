@@ -18,7 +18,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderItem
-        fields = ('id', 'order', 'product', 'quantity', 'price', 'cost', 'created', 'updated',)
+        fields = ('id', 'order', 'product', 'quantity', 'price', 'cost', 'created', 'modified',)
         read_only_fields = ('order', )
 
     def validate(self, validated_data):
@@ -52,13 +52,13 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class OrderReadSerializer(serializers.ModelSerializer):
-    buyer = serializers.CharField(source='buyer.get_full_name', read_only=True)
+    buyer = serializers.CharField(source='customer.get_full_name', read_only=True)
     order_items = OrderItemSerializer(read_only=True, many=True)
     total_cost = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Order
-        fields = ('id', 'customer', 'shipping_address', 'address', 'payment', 'order_items', 'total_cost', 'status', 'created', 'updated')
+        fields = ('id', 'customer', 'shipping_address', 'address', 'payment', 'order_items', 'total_cost', 'status', 'created', 'modified')
 
     def get_total_cost(self, obj):
         return obj.total_cost
@@ -75,8 +75,8 @@ class OrderWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'buyer', 'status', 'order_items', 'created', 'updated',)
-        read_only_fields = ('status', )
+        fields = ('id', 'customer', 'order_state', 'order_items', 'created', 'modified',)
+        read_only_fields = ('order_state', )
 
     def create(self, validated_data):
         orders_data = validated_data.pop('order_items')

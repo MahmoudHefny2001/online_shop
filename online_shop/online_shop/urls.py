@@ -25,8 +25,9 @@ urlpatterns = [
     path('products/', include('product.urls')),
     path('carts/', include('cart.urls')),
     path('orders/', include('order.urls')),
-
-    path('payments/', include('payments.urls')),    ##
+    path('payments/', include('payment.urls')),
+    
+    # path('payments/', include('payments.urls')),    ##
 
     re_path(r'^auth/', include('drf_social_oauth2.urls', namespace='drf'))
     

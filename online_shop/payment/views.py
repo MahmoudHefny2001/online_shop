@@ -15,9 +15,9 @@ from .permissions import (
     IsPaymentPending
 )
 from .serializers import CheckoutSerializer, PaymentSerializer
-from orders.models import Order
-from orders.permissions import IsOrderByCustomerOrAdmin
-from payment.tasks import send_payment_success_email_task
+from order.models import Order
+from order.permissions import IsOrderByCustomerOrAdmin
+from .tasks import send_payment_success_email_task
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
