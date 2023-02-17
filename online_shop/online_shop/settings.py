@@ -314,7 +314,6 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
@@ -325,18 +324,14 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = bool(os.environ.get('EMAIL_USE_SSL'))
 
 
-
 # Stripe
+
 # STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 # STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 # STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
 
 # BACKEND_DOMAIN = os.environ.get('BACKEND_DOMAIN')
 # FRONTEND_DOMAIN = os.environ.get('FRONTEND_DOMAIN')
-
-# PAYMENT_SUCCESS_URL = os.environ.get('PAYMENT_SUCCESS_URL')
-# PAYMENT_CANCEL_URL = os.environ.get('PAYMENT_CANCEL_URL')
-
 
 # # Redis Cache
 # CACHES = {
@@ -349,37 +344,41 @@ EMAIL_USE_SSL = bool(os.environ.get('EMAIL_USE_SSL'))
 # CACHE_MIDDLEWARE_SECONDS = 3600
 # CACHE_MIDDLEWARE_KEY_PREFIX = ''
 
+
 # PAYMENT_CONFIG
 
-PAYMENT_HOST = 'localhost:8000'
-PAYMENT_USES_SSL = True
+PAYMENT_HOST = os.environ.get('PAYMENT_HOST')
+PAYMENT_USES_SSL = bool(os.environ.get('PAYMENT_USES_SSL'))
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
+# PAYMENT_SUCCESS_URL = os.environ.get('PAYMENT_SUCCESS_URL')
+# PAYMENT_CANCEL_URL = os.environ.get('PAYMENT_CANCEL_URL')
+
+
 # PAYMENT_VARIANT_FACTORY = "mypaymentapp.provider_factory"
-PAYMENT_MODEL = 'payment.models.Payment'
+# PAYMENT_MODEL = 'payment.models.Payment'
 
-PAYMENT_VARIANTS = {
-    'paymob': (
-        '',{
-            'token': 'XXXXXXXXXX',
-            '': 'XXXXXXXXX',
-        }
-    ),
+# PAYMENT_VARIANTS = {
+#     'paymob': (
+#         '',{
+#             'token': os.environ.get('token'),
+#             '': 'XXXXXXXXX',
+#         }
+#     ),
 
-    'paypal': (
-        'payments.paypal.PaypalProvider',{
-            'client_id': 'XXXXXXXXXX',
-            'secret': 'XXXXXXXXX',
-            'endpoint': 'https://api.sandbox.paypal.com',
-            'capture': False,
-        }
-    ),
+#     'paypal': (
+#         'payments.paypal.PaypalProvider',{
+#             'client_id': os.environ.get('client_id'),
+#             'secret': os.environ.get('secret'),
+#             'endpoint': os.environ.get('endpoint'),
+#             'capture': False,
+#         }
+#     ),
 
-    'stripe': (
-        'payments.stripe.StripeProvider',{
-            'secret_key': 'sk_test_123456',
-            'public_key': 'pk_test_123456',
-        }
-    )
-}
-
-STRIPE_SECRET_KEY = 'XXXXXXXXXX'
-STRIPE_PUBLIC_KEY = 'XXXXXXXXXX'
+#     'stripe': (
+#         'payments.stripe.StripeProvider',{
+#             'secret_key': os.environ.get('STRIPE_SECRET_KEY'),
+#             'public_key': os.environ.get('STRIPE_PUBLIC_KEY'),
+#         }
+#     )
+# }
